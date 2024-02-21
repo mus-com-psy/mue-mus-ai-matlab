@@ -64,13 +64,13 @@ for i=1:naud
   thresh = quantile(ua(:), threshParam);
   %% YOU COME IN HERE! %%
   % Use FastPeakFind().
-  
+
   % Plot/visualize.
   hold on; plot(J, I, 'r+'); hold off;
-  
+
   % Synthesize an audio file based on the extracted peaks.
   y = zeros(size(sig, 1), 1);
-  t = (0:round(Fs*0.05))'/Fs;
+  t = (0:round(Fs*0.02))'/Fs;
   for j=1:length(J)
     % currTime = ...;
     % cts = ...; % Short for current time sample.
@@ -81,10 +81,10 @@ for i=1:naud
   end
   y = 0.8*y/max(abs(y)); % Normalize to [-.8, .8].
   fnams(i).peaks = [I, J]; % Store the peak locations.
-  
+
   % Write output to file.
   audiowrite(fullfile(outDir, fnams(i).name), y, Fs);
-  outfnam = fullfile(outDir, [fnams(i).name '.json']); 
+  outfnam = fullfile(outDir, [fnams(i).name '.json']);
   fid = fopen(outfnam, 'w');
   encodedJson = jsonencode(fnams(i));
   fprintf(fid, encodedJson);
