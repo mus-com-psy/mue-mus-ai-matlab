@@ -49,7 +49,7 @@ for i=1:naud
   % ua = abs(u(nfft/2:nfft/2 + nrows - 1, :));
 
   % Show spectrogram.
-  % close all; imagesc(-s); colormap 'gray'; axis xy
+  % close all; imagesc(-sa); colormap 'gray'; axis xy
   % xlabel('Time (Spectrogram Increment)', 'FontSize', 18);
   % ylabel('Frequency (Spectrogram Increment)', 'FontSize', 18);
 
@@ -64,6 +64,7 @@ for i=1:naud
   outfnam = fullfile(outDir, [fnams(i).name '.json']); 
   fid = fopen(outfnam, 'w');
   encodedJson = jsonencode(fnams(i));
-  fprintf(fid, encodedJson);
+  % fprintf(fid, encodedJson);
+  fprintf(fid, '%d', [1, 2]);
   fclose(fid);
 end
