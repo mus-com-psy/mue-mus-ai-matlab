@@ -19,7 +19,7 @@ E = [40 60; 40.75 60; 41 62; 42 60; 43 65; 44 64; 46 60; 46.75 60; 47 62; 48 60]
 diffD = diff(D);
 diffE = diff(E);
 
-% 2. Normalize.
+% 2. Subtract the first note from everything.
 Dmc = D - D(1, :);
 Emc = E - E(1, :);
 
@@ -34,54 +34,22 @@ Emc = E - E(1, :);
 % it's not a matrix because of its dimensionality).
 % 3. Store pairwise differences between points.
 n = length(D);
-A = zeros(n, n, 2);
-% N = n*(n - 1)/2;
-% v = zeros(N, 3);
-% aColorVals = zeros(n, n);
-% k = 1;
+A = zeros(n, n, 3);
 for i=1:n
   for j=1:n
-    A(i, j, :) = D(j, :) - D(i, :);
-    % if j > i
-    %   v(k, 1:2) = A(i, j, :);
-    %   % Lookup
-    %   [tf, idx] = ismember(v(k, 1:2), v(1:k - 1, 1:2), 'rows');
-    %   if tf
-    %     v(k, 3) = v(idx, 3);
-    %   else
-    %     v(k, 3) = 255*rand();
-    %   end
-    %   aColorVals(i, j) = v(k, 3);
-    %   k=k+1;
-    % end
+    A(i, j, 1:2) = D(j, :) - D(i, :);
   end
 end
-% close all; imagesc(aColorVals);
+close all; image(A);
 
 n = length(E);
-B = zeros(n, n, 2);
-% N = n*(n - 1)/2;
-% v = zeros(N, 3);
-% bColorVals = zeros(n, n);
-% k = 1;
+B = zeros(n, n, 3);
 for i=1:n
   for j=1:n
-    B(i, j, :) = E(j, :) - E(i, :);
-    % if j > i
-    %   v(k, 1:2) = B(i, j, :);
-    %   % Lookup
-    %   [tf, idx] = ismember(v(k, 1:2), v(1:k - 1, 1:2), 'rows');
-    %   if tf
-    %     v(k, 3) = v(idx, 3);
-    %   else
-    %     v(k, 3) = 255*rand();
-    %   end
-    %   bColorVals(i, j) = v(k, 3);
-    %   k=k+1;
-    % end
+    B(i, j, 1:2) = E(j, :) - E(i, :);
   end
 end
-% imagesc(bColorVals);
+image(B);
 
 
 % If you look at these arrays in MATLAB's Workspace browser, you will see
