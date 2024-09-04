@@ -9,7 +9,9 @@
 % lead to the *same* result as applying f to D?
 
 % Opening phrase and a bit of Happy Birthday, as a point set:
-D = [0 55; 0.75 55; 1 59; 1.5 57; 2 55; 3 60; 4 59; 6 55; 6.75 55; 7 57; 8 55];
+D = [0 55; 0.75 55; 1 57; 2 55; 3 60; 4 59; 6 55; 6.75 55; 7 57; 8 55];
+D = [0 55; 1 55; 2 55; 3 55; 4 55];
+D = [0 55; 0 60; 0 65; 0 70; 0 75];
 % Opening phrase and a bit of Happy Birthday, as a point set, with a slight
 % variation (additional note) near the beginning:
 E = [40 60; 40.75 60; 41 62; 42 60; 43 65; 44 64; 46 60; 46.75 60; 47 62; 48 60];
@@ -36,11 +38,25 @@ Emc = E - E(1, :);
 n = length(D);
 A = zeros(n, n, 3);
 for i=1:n
-  for j=1:n
+  for j=i+1:n
     A(i, j, 1:2) = D(j, :) - D(i, :);
   end
 end
-close all; image(A);
+% Transform to get decent RGB image.
+mA = min(A(:));
+MA = max(A(:));
+close all; image((A - mA)/(MA - mA));
+
+
+mA1 = min(min(A(:, :, 1)));
+MA1 = max(max(A(:, :, 1)));
+A1 = (A(:, :, 1) - mA1)/(MA1 - mA1);
+mA2 = min(min(A(:, :, 2)));
+MA2 = max(max(A(:, :, 2)));
+A2 = (A(:, :, 2) - mA2)/(MA1 - mA2);
+A3 = zeros(n, n, 1);
+nA(:, :, 1) = A1; nA(:, :, 2) = A2; nA(:, :, 3) = A3;
+
 
 n = length(E);
 B = zeros(n, n, 3);

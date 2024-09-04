@@ -1,2 +1,2 @@
 # mmi-mus-ai-matlab
-MATLAB code for MMI Music + AI
+MATLAB code for MUE Music + AI
